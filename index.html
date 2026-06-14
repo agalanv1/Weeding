@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Андрей &amp; Марина · 30.09.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #ECEAE5;
+  --env:      #FEFDFB;
+  --fold1:    #F2F1EE;
+  --fold2:    #E8E6E2;
+  --cream:    #FAFAF7;
+  --ivory:    #F3EFE6;
+  --charcoal: #1E1C18;
+  --taupe:    #8A7E68;
+  --gold:     #B89A70;
+  --goldl:    #D4BAA0;
+  --text:     #2C2820;
+  --muted:    #7A6E5C;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Montserrat',sans-serif;
+  font-weight:300;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─── ENVELOPE SCREEN ─── */
+#env-screen{
+  position:fixed;inset:0;z-index:1000;
+  background:#EDEAE3;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;cursor:pointer;
+  transition:opacity .7s ease, transform .7s ease;
+}
+#env-screen.closing{opacity:0;transform:scale(1.03);pointer-events:none}
+
+.env-photo{
+  position:relative;
+  width:min(100vw,480px);
+  height:100vh;max-height:880px;
+  background-image:url('envelope.png');
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  transition:transform .9s cubic-bezier(.4,0,.2,1), opacity .9s ease;
+}
+.env-photo.opening{
+  transform:scale(1.18);opacity:0;
+}
+.env-photo::after{
+  /* subtle vignette */
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.06) 100%);
+}
+
+/* Whole envelope is clickable — no extra pulse ring */
+.env-photo.tapped{animation:envTap .4s ease}
+@keyframes envTap{
+  0%{transform:scale(1)}
+  40%{transform:scale(.985)}
+  100%{transform:scale(1)}
+}
+
+/* ─── MAIN SITE ─── */
+#main{
+  max-width:480px;margin:0 auto;
+  background:var(--cream);
+  opacity:0;transform:translateY(18px);
+  transition:opacity .8s ease,transform .8s ease;
+  pointer-events:none;
+}
+#main.visible{opacity:1;transform:none;pointer-events:auto}
+
+/* scroll fade-in */
+.fi-block{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.fi-block.in{opacity:1;transform:none}
+
+/* ─── SHARED ─── */
+.sec{padding:3.5rem 1.6rem}
+.sec-label{display:block;font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);text-align:center;margin-bottom:.6rem}
+.sec-title{
+  font-family:'Cormorant Garamond',serif;font-size:1.9rem;
+  font-style:italic;font-weight:400;text-align:center;
+  color:var(--charcoal);line-height:1.2}
+.orn{text-align:center;color:var(--goldl);font-size:.85rem;
+  letter-spacing:.6em;margin:1rem 0}
+.divider{height:1px;
+  background:linear-gradient(to right,transparent,var(--goldl),transparent);
+  margin:0 1.6rem}
+
+/* ─── HERO ─── */
+#s-hero{position:relative;overflow:hidden}
+.hero-img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 15%;display:block}
+.hero-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 38%,rgba(20,18,14,.5) 70%,rgba(20,18,14,.78) 100%)}
+.hero-txt{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:2rem 1.8rem;text-align:center}
+.hero-names{
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(3rem,14vw,4.5rem);
+  color:#fff;line-height:1.15}
+.hero-amp{display:block;font-size:clamp(1.4rem,7vw,2.4rem);color:rgba(255,255,255,.55);margin:.1em 0}
+.hero-date{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);margin-top:.8rem}
+
+/* ─── COUNTDOWN ─── */
+#s-cd{background:var(--charcoal);padding:2rem 1.5rem;text-align:center}
+.cd-lbl{font-size:.56rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem}
+.cd-grid{display:flex;justify-content:center;align-items:center;gap:.2rem}
+.cd-item{flex:1;max-width:70px;text-align:center}
+.cd-num{display:block;font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,9vw,3rem);color:var(--goldl);font-weight:300;line-height:1;
+  font-variant-numeric:lining-nums tabular-nums;
+  font-feature-settings:"lnum" 1,"tnum" 1;
+  text-align:center}
+.cd-unit{display:block;font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);margin-top:.3rem;text-align:center}
+.cd-sep{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,9vw,3rem);
+  color:var(--gold);opacity:.4;line-height:1;
+  font-variant-numeric:lining-nums tabular-nums;
+  flex-shrink:0;align-self:center;padding-top:0}
+
+/* ─── PROGRAM ─── */
+#s-prog{padding:3.8rem 1.6rem;background:var(--cream);position:relative;overflow:hidden}
+#s-prog::before{
+  content:'';position:absolute;left:50%;top:6rem;bottom:3rem;width:1px;
+  background:linear-gradient(to bottom,transparent,var(--goldl) 8%,var(--goldl) 92%,transparent);
+  opacity:.45;transform:translateX(-.5px)
+}
+.prog-list{margin-top:2.4rem;display:flex;flex-direction:column;gap:.4rem;position:relative}
+.prog-item{
+  position:relative;display:flex;flex-direction:column;align-items:center;
+  padding:1.2rem 0;
+  opacity:0;transform:translateY(28px);
+  transition:opacity .8s ease, transform .8s cubic-bezier(.22,.61,.36,1);
+}
+.prog-item.in{opacity:1;transform:none}
+.prog-item.in:nth-child(1){transition-delay:.1s}
+.prog-item.in:nth-child(2){transition-delay:.25s}
+.prog-item.in:nth-child(3){transition-delay:.4s}
+.prog-item.in:nth-child(4){transition-delay:.55s}
+
+.prog-dot{
+  width:9px;height:9px;border-radius:50%;background:var(--cream);
+  border:1.5px solid var(--gold);position:relative;z-index:2;
+  margin-bottom:.85rem;box-shadow:0 0 0 4px var(--cream);
+}
+.prog-time{
+  display:block;font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-style:italic;font-weight:300;
+  color:var(--gold);letter-spacing:.04em;line-height:1;margin-bottom:.6rem;
+}
+.prog-ev{
+  font-family:'Cormorant Garamond',serif;font-size:1.35rem;
+  color:var(--charcoal);line-height:1.25;margin-bottom:.35rem;
+  font-weight:400;text-align:center;
+}
+.prog-sub{
+  font-size:.72rem;color:var(--muted);line-height:1.7;
+  text-align:center;letter-spacing:.04em;max-width:280px;padding:0 1rem;
+}
+
+/* ─── PHOTO STRIP ─── */
+.strip2{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.strip-ph{overflow:hidden;aspect-ratio:1;position:relative}
+.strip-ph img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform 1.2s ease, filter .6s ease;filter:brightness(.97)}
+.strip-ph:hover img{transform:scale(1.07);filter:brightness(1)}
+
+/* ─── LOCATION ─── */
+#s-loc{padding:3.5rem 1.6rem;background:var(--ivory)}
+.venue-name{font-family:'Great Vibes',cursive;font-size:2.4rem;
+  color:var(--charcoal);text-align:center;margin:1rem 0 .4rem}
+.venue-addr{text-align:center;font-size:.78rem;color:var(--muted);line-height:1.8;margin-bottom:1.6rem}
+.map-box{width:100%;height:220px;border-radius:3px;overflow:hidden;margin-bottom:1.4rem}
+.map-box iframe{width:100%;height:100%;border:0}
+.btn-route{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  width:100%;padding:1rem;background:transparent;
+  border:1px solid var(--gold);color:var(--charcoal);
+  font-family:'Montserrat',sans-serif;font-size:.66rem;
+  font-weight:400;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;border-radius:2px;cursor:pointer;
+  transition:background .3s,color .3s}
+.btn-route:active,.btn-route:hover{background:var(--gold);color:#fff}
+
+/* ─── TRANSFER ─── */
+#s-tr{padding:3.5rem 1.6rem}
+.route-card{background:var(--ivory);border-radius:4px;padding:1.6rem 1.4rem;margin-top:1.5rem}
+.rs-step{display:flex;align-items:flex-start;gap:1.1rem}
+.rs-dot{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.rs-dot em{width:10px;height:10px;border-radius:50%;background:var(--gold);
+  display:block;flex-shrink:0;margin-top:5px}
+.rs-dot::after{content:'';width:1px;height:34px;background:var(--goldl);margin-top:4px}
+.rs-step:last-child .rs-dot::after{display:none}
+.rs-body{padding-bottom:1.1rem}
+.rs-step:last-child .rs-body{padding-bottom:0}
+.rs-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--charcoal);margin-bottom:.15rem}
+.rs-sub{font-size:.7rem;color:var(--muted)}
+.tr-note{text-align:center;font-size:.7rem;opacity:.45;margin-top:1rem;line-height:1.7}
+
+/* ─── DRESS CODE ─── */
+#s-dc{padding:3.8rem 1.6rem;background:var(--ivory);position:relative;overflow:hidden}
+.dc-text{text-align:center;font-size:.82rem;color:var(--muted);line-height:2;margin-bottom:1.8rem;font-style:italic}
+.dc-text strong{font-weight:400;color:var(--charcoal);font-style:normal}
+.dc-palette{display:flex;justify-content:center;align-items:center;gap:.55rem;
+  flex-wrap:nowrap;margin:0 auto 1rem;padding:0 .3rem}
+.dc-sw{display:block;width:36px;height:36px;border-radius:50%;
+  box-shadow:0 2px 10px rgba(0,0,0,.18);flex-shrink:0;
+  opacity:0;transform:scale(.6);
+  transition:opacity .55s ease, transform .55s cubic-bezier(.34,1.56,.64,1)}
+.dc-sw.in{opacity:1;transform:scale(1)}
+.dc-sw.in:nth-of-type(1){transition-delay:.05s}
+.dc-sw.in:nth-of-type(2){transition-delay:.12s}
+.dc-sw.in:nth-of-type(3){transition-delay:.19s}
+.dc-sw.in:nth-of-type(4){transition-delay:.26s}
+.dc-sw.in:nth-of-type(5){transition-delay:.33s}
+.dc-sw.in:nth-of-type(6){transition-delay:.4s}
+.dc-sw.in:nth-of-type(7){transition-delay:.47s}
+.dc-sw:hover{transform:scale(1.15) !important;transition-delay:0s !important}
+.dc-names{text-align:center;font-size:.58rem;letter-spacing:.1em;color:var(--muted);opacity:.7;margin-bottom:1.8rem;line-height:1.7}
+
+.dc-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:.8rem 0 1.4rem}
+.dc-img{overflow:hidden;border-radius:3px;aspect-ratio:3/4;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.dc-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1s ease}
+.dc-img:hover img{transform:scale(1.05)}
+
+.dc-avoid{text-align:center;font-size:.71rem;color:var(--muted);opacity:.62;font-style:italic;line-height:1.7;padding-top:1.2rem;border-top:1px solid rgba(0,0,0,.06);margin-top:.6rem}
+
+/* ─── RSVP ─── */
+#s-rsvp{padding:3.8rem 1.6rem;background:var(--cream);color:var(--text);position:relative}
+.f-deadline{text-align:center;font-size:.7rem;letter-spacing:.1em;
+  color:var(--muted);margin-bottom:2.4rem;font-style:italic;opacity:.75}
+
+.guest-card{
+  background:#fff;border:1px solid rgba(184,154,112,.22);
+  border-radius:6px;padding:1.6rem 1.3rem;margin-bottom:1.1rem;
+  box-shadow:0 4px 18px rgba(60,40,20,.06);
+  position:relative;
+  animation:cardIn .5s cubic-bezier(.22,.61,.36,1);
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.gc-head{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:1.2rem;padding-bottom:.85rem;
+  border-bottom:1px solid rgba(184,154,112,.18);
+}
+.gc-num{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.1rem;color:var(--gold);letter-spacing:.05em;
+}
+.gc-rm{
+  background:none;border:none;cursor:pointer;
+  color:var(--muted);font-size:.65rem;letter-spacing:.1em;
+  padding:.3rem .6rem;border-radius:50px;
+  transition:color .2s, background .2s;
+}
+.gc-rm:hover{color:#a04040;background:rgba(160,64,64,.08)}
+
+.fg{margin-bottom:1.1rem}
+.fg:last-child{margin-bottom:0}
+.fl{display:block;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.55rem;font-weight:500}
+.fi{width:100%;padding:.78rem 1rem;
+  background:#FAF8F3;
+  border:1px solid rgba(184,154,112,.25);border-radius:3px;
+  color:var(--text);font-family:'Montserrat',sans-serif;
+  font-size:.85rem;font-weight:300;outline:none;
+  transition:border-color .3s, background .3s;-webkit-appearance:none}
+.fi:focus{border-color:var(--gold);background:#fff}
+.fi::placeholder{color:rgba(124,110,92,.5)}
+.fi.ta{resize:vertical;min-height:80px;font-family:inherit}
+
+.pills{display:flex;flex-wrap:wrap;gap:.42rem}
+.pill{position:relative}
+.pill input{position:absolute;opacity:0;width:0;height:0}
+.pill label{
+  display:flex;align-items:center;gap:.32rem;
+  padding:.45rem .9rem;
+  background:#FAF8F3;
+  border:1px solid rgba(184,154,112,.28);border-radius:50px;
+  font-size:.74rem;cursor:pointer;
+  color:var(--muted);transition:all .25s;user-select:none;
+  font-weight:400;
+}
+.pill label:hover{border-color:var(--gold);color:var(--charcoal);background:#fff}
+.pill input:checked+label{
+  background:var(--gold);border-color:var(--gold);
+  color:#fff;font-weight:500;
+  box-shadow:0 2px 8px rgba(184,154,112,.35);
+}
+
+/* age toggle */
+.age-toggle{display:flex;gap:.3rem;background:#FAF8F3;
+  padding:.22rem;border-radius:50px;border:1px solid rgba(184,154,112,.22);
+  width:fit-content}
+.age-toggle .pill label{
+  padding:.4rem 1rem;font-size:.7rem;border:none;background:transparent;letter-spacing:.04em;
+}
+.age-toggle .pill input:checked+label{box-shadow:0 2px 6px rgba(184,154,112,.3)}
+
+.btn-add{
+  display:block;width:100%;padding:.95rem;margin:.4rem 0 1.4rem;
+  background:transparent;border:1.5px dashed rgba(184,154,112,.4);
+  border-radius:50px;
+  font-family:'Montserrat',sans-serif;font-size:.68rem;
+  color:var(--gold);letter-spacing:.18em;text-transform:uppercase;
+  cursor:pointer;font-weight:500;
+  transition:all .25s;
+}
+.btn-add:hover{
+  background:rgba(184,154,112,.06);border-style:solid;
+  border-color:var(--gold);color:var(--charcoal);
+}
+.btn-add span{font-size:.95rem;margin-right:.4rem;line-height:1}
+
+.attend-card{
+  background:#fff;border:1px solid rgba(184,154,112,.22);
+  border-radius:6px;padding:1.4rem 1.3rem;margin-bottom:1.1rem;
+  box-shadow:0 4px 18px rgba(60,40,20,.06);
+}
+.shared-card{
+  background:#fff;border:1px solid rgba(184,154,112,.22);
+  border-radius:6px;padding:1.4rem 1.3rem;margin-bottom:1.4rem;
+  box-shadow:0 4px 18px rgba(60,40,20,.06);
+}
+
+.btn-send{
+  width:100%;padding:1.1rem;margin-top:.3rem;
+  background:linear-gradient(135deg, var(--gold) 0%, #a08860 100%);
+  color:#fff;
+  font-family:'Montserrat',sans-serif;font-size:.7rem;
+  font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+  border:none;border-radius:50px;cursor:pointer;
+  box-shadow:0 4px 16px rgba(184,154,112,.35);
+  transition:transform .2s, box-shadow .25s;
+}
+.btn-send:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(184,154,112,.45)}
+.btn-send:active{transform:translateY(0)}
+.btn-send:disabled{opacity:.5;cursor:not-allowed}
+
+.form-ok{display:none;text-align:center;padding:3rem 1rem}
+.form-ok .bigs{font-family:'Great Vibes',cursive;font-size:3.2rem;
+  color:var(--gold);display:block;margin-bottom:.8rem}
+.form-ok p{font-size:.84rem;color:var(--muted);line-height:1.85}
+
+.cal-box{margin-top:2.4rem;padding-top:1.8rem;border-top:1px solid rgba(184,154,112,.25)}
+.cal-hint{font-size:.7rem;color:var(--muted);
+  letter-spacing:.08em;margin-bottom:1.1rem;font-style:italic;opacity:.8}
+.cal-btn{
+  display:flex;align-items:center;justify-content:center;gap:.55rem;
+  width:100%;padding:.92rem 1rem;margin-bottom:.7rem;
+  background:#fff;color:var(--charcoal);
+  border:1px solid rgba(184,154,112,.35);border-radius:50px;
+  font-family:'Montserrat',sans-serif;font-size:.7rem;
+  font-weight:400;letter-spacing:.16em;text-transform:uppercase;
+  text-decoration:none;cursor:pointer;
+  transition:background .25s,border-color .25s,transform .15s;
+}
+.cal-btn:hover{background:var(--ivory);border-color:var(--gold)}
+.cal-btn:active{transform:scale(.98)}
+.cal-btn svg{color:var(--gold);flex-shrink:0}
+
+/* ─── CONTACTS ─── */
+#s-ct{padding:3.5rem 1.6rem}
+.ct-list{margin-top:1.8rem;display:flex;flex-direction:column;gap:1.4rem}
+.ct-item{text-align:center}
+.ct-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;
+  color:var(--charcoal);margin-bottom:.4rem}
+.ct-tel{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:1.05rem;font-weight:400;color:var(--charcoal);
+  text-decoration:none;border-bottom:1px solid var(--goldl);padding-bottom:2px;
+  transition:color .2s,border-color .2s}
+.ct-tel:hover{color:var(--gold);border-color:var(--gold)}
+
+/* ─── FOOTER ─── */
+footer{background:var(--charcoal);text-align:center;padding:2.5rem 1.5rem}
+.ft-names{font-family:'Great Vibes',cursive;font-size:2.2rem;color:var(--gold);margin-bottom:.3rem}
+.ft-date{font-family:'Cormorant Garamond',serif;font-size:.8rem;
+  letter-spacing:.22em;color:rgba(255,255,255,.32)}
+
+/* ─── MUSIC BTN ─── */
+#mbtn{
+  position:fixed;bottom:1.6rem;right:1.4rem;z-index:500;
+  width:46px;height:46px;border-radius:50%;
+  background:var(--gold);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 14px rgba(0,0,0,.22);
+  opacity:0;pointer-events:none;
+  transition:opacity .45s,transform .25s}
+#mbtn.show{opacity:1;pointer-events:auto}
+#mbtn:hover{transform:scale(1.1)}
+#mbtn.playing::after{
+  content:'';position:absolute;inset:-6px;border-radius:50%;
+  border:1.5px solid var(--gold);
+  animation:mRipple 1.5s ease-in-out infinite}
+@keyframes mRipple{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.35);opacity:0}}
+#mbtn svg{fill:white;width:17px;height:17px}
+#icP{display:none}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     ENVELOPE SCREEN
+     ════════════════════════════════════════ -->
+<div id="env-screen">
+  <div class="env-photo" id="ePhoto"></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     MAIN SITE
+     ════════════════════════════════════════ -->
+<div id="main">
+
+  <!-- HERO -->
+  <section id="s-hero">
+    <img class="hero-img"
+         src="фото АМ/photo_1_2026-06-07_17-28-55.jpg"
+         alt="Андрей и Марина">
+    <div class="hero-ov"></div>
+    <div class="hero-txt">
+      <h1 class="hero-names">
+        Андрей<span class="hero-amp">&amp;</span>Марина
+      </h1>
+      <p class="hero-date">30 · Сентября · 2026</p>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <div id="s-cd">
+    <p class="cd-lbl">До торжества осталось</p>
+    <div class="cd-grid">
+      <div class="cd-item"><span class="cd-num" id="dd">00</span><span class="cd-unit">Дней</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item"><span class="cd-num" id="dh">00</span><span class="cd-unit">Часов</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item"><span class="cd-num" id="dm">00</span><span class="cd-unit">Минут</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item"><span class="cd-num" id="ds">00</span><span class="cd-unit">Секунд</span></div>
+    </div>
+  </div>
+
+  <!-- PROGRAM -->
+  <section id="s-prog" class="sec fi-block">
+    <span class="sec-label">30 сентября 2026</span>
+    <h2 class="sec-title">Программа дня</h2>
+    <div class="orn">· · ◇ · ·</div>
+    <div class="prog-list">
+
+      <div class="prog-item">
+        <div class="prog-dot"></div>
+        <span class="prog-time">16:00</span>
+        <p class="prog-ev">Сбор гостей</p>
+        <p class="prog-sub">Welcome-зона<br>и лёгкий фуршет</p>
+      </div>
+
+      <div class="prog-item">
+        <div class="prog-dot"></div>
+        <span class="prog-time">16:30</span>
+        <p class="prog-ev">Клятвы</p>
+        <p class="prog-sub">Личные клятвы, обмен кольцами<br>и объявление семьёй</p>
+      </div>
+
+      <div class="prog-item">
+        <div class="prog-dot"></div>
+        <span class="prog-time">17:00</span>
+        <p class="prog-ev">Банкет</p>
+        <p class="prog-sub">Ужин, тосты, первый танец<br>и музыка до самой ночи</p>
+      </div>
+
+      <div class="prog-item">
+        <div class="prog-dot"></div>
+        <span class="prog-time">22:00</span>
+        <p class="prog-ev">Заканчиваем</p>
+        <p class="prog-sub">Финальный танец<br>и трансфер домой</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PHOTO STRIP — 2 photos after program -->
+  <div class="strip2">
+    <div class="strip-ph"><img src="фото АМ/photo_3_2026-06-07_17-28-55.jpg" alt=""></div>
+    <div class="strip-ph"><img src="фото АМ/photo_5_2026-06-07_17-28-55.jpg" alt=""></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- LOCATION -->
+  <section id="s-loc" class="fi-block">
+    <span class="sec-label">Место проведения</span>
+    <p class="venue-name">Зимёнки Парк</p>
+    <p class="venue-addr">Оранжерея «Зимёнки Парк»<br>Нижегородская область</p>
+    <div class="map-box">
+      <iframe src="https://yandex.ru/map-widget/v1/-/CPdzeV7q"
+              title="Оранжерея Зимёнки Парк" allow="fullscreen" loading="lazy"></iframe>
+    </div>
+    <a href="https://yandex.ru/maps/-/CPdzeV7q" target="_blank" rel="noopener" class="btn-route">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+      </svg>
+      Проложить маршрут
+    </a>
+  </section>
+
+  <!-- DRESS CODE -->
+  <section id="s-dc" class="fi-block">
+    <span class="sec-label">Пожелания</span>
+    <h2 class="sec-title">Дресс-код</h2>
+    <div class="orn">· · ◇ · ·</div>
+    <p class="dc-text">
+      <strong>Пожелания не строгие, но предпочтительные —</strong><br>
+      будем рады, если вы поддержите<br>палитру нашего праздника
+    </p>
+    <div class="dc-palette">
+      <span class="dc-sw" style="background:#2C1A12" title="Шоколадный"></span>
+      <span class="dc-sw" style="background:#634030" title="Мокко"></span>
+      <span class="dc-sw" style="background:#B8906A" title="Бежевый"></span>
+      <span class="dc-sw" style="background:#CEBAAC" title="Пудровый"></span>
+      <span class="dc-sw" style="background:#E5DDD0" title="Крем"></span>
+      <span class="dc-sw" style="background:#8DAD80" title="Шалфей"></span>
+      <span class="dc-sw" style="background:#4E6640" title="Оливковый"></span>
+    </div>
+    <p class="dc-names">шоколад · мокко · беж · пудра · крем · шалфей · олива</p>
+
+    <div class="dc-grid">
+      <div class="dc-img"><img src="dress1.jpg" alt="Палитра дресс-кода"></div>
+      <div class="dc-img"><img src="dress2.jpg" alt="Образы по палитре"></div>
+    </div>
+
+    <p class="dc-avoid">Просьба воздержаться от белого<br>и очень ярких оттенков</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TRANSFER -->
+  <section id="s-tr" class="sec fi-block">
+    <span class="sec-label">В день свадьбы</span>
+    <h2 class="sec-title">Трансфер</h2>
+    <div class="orn">· · ◇ · ·</div>
+    <div class="route-card">
+      <div class="rs-step">
+        <div class="rs-dot"><em></em></div>
+        <div class="rs-body"><p class="rs-title">Площадь Горького</p><p class="rs-sub">Отправление в 14:30</p></div>
+      </div>
+      <div class="rs-step">
+        <div class="rs-dot"><em></em></div>
+        <div class="rs-body"><p class="rs-title">Проспект Гагарина</p><p class="rs-sub">Следуем на юг</p></div>
+      </div>
+      <div class="rs-step">
+        <div class="rs-dot"><em></em></div>
+        <div class="rs-body"><p class="rs-title">Площадь Советская</p><p class="rs-sub">Промежуточная точка</p></div>
+      </div>
+      <div class="rs-step">
+        <div class="rs-dot"><em></em></div>
+        <div class="rs-body"><p class="rs-title">Верхние Печёры</p><p class="rs-sub">Через Верхние Печёры</p></div>
+      </div>
+      <div class="rs-step">
+        <div class="rs-dot"><em></em></div>
+        <div class="rs-body"><p class="rs-title">Зимёнки Парк ✦</p><p class="rs-sub">Прибытие к 15:50</p></div>
+      </div>
+    </div>
+    <p class="tr-note">Обратный трансфер в 22:30 по тому же маршруту</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- RSVP -->
+  <section id="s-rsvp" class="fi-block">
+    <span class="sec-label">Анкета</span>
+    <h2 class="sec-title">Подтвердите участие</h2>
+    <div class="orn">· · ◇ · ·</div>
+    <p class="f-deadline">Просим заполнить до 30 июля 2026<br>одну анкету за всю семью</p>
+
+    <form id="gForm" novalidate>
+      <!-- Shared contact -->
+      <div class="shared-card">
+        <div class="fg">
+          <label class="fl" for="fp">Контактный телефон *</label>
+          <input type="tel" id="fp" name="phone" class="fi" placeholder="+7 (900) 000-00-00" required>
+        </div>
+        <div class="fg">
+          <label class="fl">Придёте на свадьбу? *</label>
+          <div class="pills">
+            <div class="pill"><input type="radio" id="ay" name="att" value="Приду" required><label for="ay">✓ Будем</label></div>
+            <div class="pill"><input type="radio" id="an" name="att" value="Не смогу"><label for="an">✗ Не сможем</label></div>
+          </div>
+        </div>
+        <div class="fg" id="trBox">
+          <label class="fl">Нужен ли трансфер?</label>
+          <div class="pills">
+            <div class="pill"><input type="radio" id="trY" name="transfer" value="Да"><label for="trY">🚌 Да, поедем</label></div>
+            <div class="pill"><input type="radio" id="trN" name="transfer" value="Нет"><label for="trN">🚗 Своим ходом</label></div>
+          </div>
+        </div>
+
+        <div class="fg" id="pickupBox" style="display:none">
+          <label class="fl">Откуда вас забрать?</label>
+          <div class="pills">
+            <div class="pill"><input type="radio" id="pkG" name="pickup" value="Площадь Горького"><label for="pkG">📍 Пл. Горького</label></div>
+            <div class="pill"><input type="radio" id="pkS" name="pickup" value="Площадь Советская"><label for="pkS">📍 Пл. Советская</label></div>
+            <div class="pill"><input type="radio" id="pkP" name="pickup" value="Верхние Печёры"><label for="pkP">📍 Верхние Печёры</label></div>
+          </div>
+          <input type="text" id="pkNote" name="pickup_note" class="fi"
+            placeholder="Уточните остановку или улицу (необязательно)"
+            style="margin-top:.7rem">
+        </div>
+      </div>
+
+      <!-- Guests container -->
+      <div id="guests"></div>
+
+      <button type="button" class="btn-add" id="addG">
+        <span>+</span> Добавить гостя
+      </button>
+
+      <div class="shared-card">
+        <div class="fg">
+          <label class="fl" for="fw">Пожелания и советы молодожёнам 💌</label>
+          <textarea id="fw" name="wish" class="fi ta"
+            placeholder="Напишите что-нибудь тёплое — пожелание, добрый совет или просто мысль, которая поддержит нас в начале пути"></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-send" id="sbtn">Отправить анкету</button>
+    </form>
+
+    <div class="form-ok" id="formOk">
+      <span class="bigs">Спасибо!</span>
+      <p>Ваша анкета получена 🎊<br>Ждём вас 30 сентября!</p>
+
+      <div class="cal-box">
+        <p class="cal-hint">Добавьте дату в календарь, чтобы не забыть</p>
+        <a id="gCal" class="cal-btn" target="_blank" rel="noopener" href="#">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Google Calendar
+        </a>
+        <a id="iCal" class="cal-btn" download="andrey-marina-2026.ics" href="#">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2z"/>
+            <line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/>
+            <line x1="3" y1="11" x2="21" y2="11"/>
+          </svg>
+           Apple Calendar
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO STRIP — 2 photos before contacts -->
+  <div class="strip2">
+    <div class="strip-ph"><img src="фото АМ/photo_4_2026-06-07_17-28-55.jpg" alt=""></div>
+    <div class="strip-ph"><img src="фото АМ/photo_2_2026-06-07_17-28-55.jpg" alt=""></div>
+  </div>
+
+  <!-- CONTACTS -->
+  <section id="s-ct" class="sec fi-block">
+    <span class="sec-label">Мы на связи</span>
+    <h2 class="sec-title">Контакты</h2>
+    <div class="orn">· · ◇ · ·</div>
+    <div class="ct-list">
+      <div class="ct-item">
+        <p class="ct-name">Андрей</p>
+        <a class="ct-tel" href="tel:+79100078833">+7 (910) 007-88-33</a>
+      </div>
+      <div class="ct-item">
+        <p class="ct-name">Марина</p>
+        <a class="ct-tel" href="tel:+79103770163">+7 (910) 377-01-63</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="ft-names">Андрей &amp; Марина</p>
+    <p class="ft-date">30 · 09 · 2026</p>
+  </footer>
+
+</div><!-- /#main -->
+
+<!-- Hidden SoundCloud player -->
+<div style="position:fixed;bottom:-400px;left:-400px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+  <iframe id="scf" width="100" height="100" scrolling="no" frameborder="no" allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ghostloft/so-high&color=%23B89A70&auto_play=false&hide_related=true&show_comments=false&show_user=false"></iframe>
+</div>
+
+<!-- Music button -->
+<button id="mbtn" aria-label="Музыка">
+  <svg id="icPl" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  <svg id="icP"  viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+</button>
+
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script>
+/* ── ENVELOPE ── */
+const ePhoto = document.getElementById('ePhoto');
+const eScr   = document.getElementById('env-screen');
+const main   = document.getElementById('main');
+const mbtn   = document.getElementById('mbtn');
+let opened   = false;
+
+eScr.addEventListener('click', openEnv);
+
+function openEnv() {
+  if (opened) return;
+  opened = true;
+  ePhoto.classList.add('tapped');
+  setTimeout(startMusic, 320);
+  setTimeout(() => ePhoto.classList.add('opening'), 480);
+  setTimeout(() => eScr.classList.add('closing'), 900);
+  setTimeout(() => {
+    eScr.style.display = 'none';
+    main.classList.add('visible');
+    mbtn.classList.add('show');
+    initObserver();
+    startCountdown();
+  }, 1550);
+}
+
+/* ── MUSIC ── */
+const scf   = document.getElementById('scf');
+const icPl  = document.getElementById('icPl');
+const icP   = document.getElementById('icP');
+let sc = null, playing = false;
+
+scf.addEventListener('load', () => { if (window.SC) sc = SC.Widget(scf); });
+
+function startMusic() {
+  if (!sc && window.SC) sc = SC.Widget(scf);
+  if (sc) { sc.play(); setPlay(true); }
+}
+
+function setPlay(p) {
+  playing = p;
+  icPl.style.display = p ? 'none' : 'block';
+  icP.style.display  = p ? 'block' : 'none';
+  mbtn.classList.toggle('playing', p);
+}
+
+mbtn.addEventListener('click', () => {
+  if (!sc && window.SC) sc = SC.Widget(scf);
+  if (!playing) { sc && sc.play();  setPlay(true); }
+  else          { sc && sc.pause(); setPlay(false); }
+});
+
+/* ── COUNTDOWN ── */
+function startCountdown() {
+  (function tick() {
+    const d = new Date('2026-09-30T16:00:00') - new Date();
+    if (d > 0) {
+      document.getElementById('dd').textContent = String(Math.floor(d/864e5)).padStart(2,'0');
+      document.getElementById('dh').textContent = String(Math.floor(d%864e5/36e5)).padStart(2,'0');
+      document.getElementById('dm').textContent = String(Math.floor(d%36e5/6e4)).padStart(2,'0');
+      document.getElementById('ds').textContent = String(Math.floor(d%6e4/1e3)).padStart(2,'0');
+    }
+    setTimeout(tick, 1000);
+  })();
+}
+
+/* ── SCROLL FADE-IN ── */
+function initObserver() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fi-block').forEach(el => obs.observe(el));
+
+  // program items cascade
+  const obs2 = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs2.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.prog-item').forEach(el => obs2.observe(el));
+
+  // dress palette cascade
+  const obs3 = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs3.unobserve(e.target); } });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.dc-sw').forEach(el => obs3.observe(el));
+}
+
+/* ── RSVP FORM ── */
+const GURL = 'https://script.google.com/macros/s/AKfycbyaq_1xaLOH9XU4hNmapLkXzp3z_DKEwHfJRo-FQcTj0aiL7ugUiQ5Zusa-fQrFVsY/exec';
+
+const FOOD = [
+  {v:'Мясо',e:'🥩'},{v:'Птица',e:'🍗'},
+  {v:'Рыба',e:'🐟'},{v:'Вегет.',e:'🥗'}
+];
+const ALC = [
+  {v:'Красное вино',e:'🍷'},{v:'Белое вино',e:'🥂'},
+  {v:'Шампанское',e:'🍾'},{v:'Пиво',e:'🍺'},
+  {v:'Пиво Б/А',e:'🍺'},
+  {v:'Водка',e:'🥃'},{v:'Виски',e:'🥃'},
+  {v:'Джин',e:'🍸'},{v:'Без алкоголя',e:'🧃'}
+];
+const KID_FOOD = [
+  {v:'Куриные наггетсы',e:'🍗'},{v:'Картофель фри',e:'🍟'},
+  {v:'Паста',e:'🍝'},{v:'Без особых',e:'🥗'}
+];
+const KID_DRINK = [
+  {v:'Сок',e:'🧃'},{v:'Морс',e:'🍓'},
+  {v:'Газировка',e:'🥤'},{v:'Вода',e:'💧'}
+];
+
+let gid = 0;
+function pillsHtml(name, opts, type){
+  return opts.map(o => {
+    const id = `${name}_${gid}_${o.v.replace(/[^а-яёa-z]/gi,'')}`;
+    return `<div class="pill"><input type="${type}" id="${id}" name="${name}_${gid}" value="${o.v}"><label for="${id}">${o.e} ${o.v}</label></div>`;
+  }).join('');
+}
+
+function makeCard(num, isFirst){
+  const id = gid++;
+  const div = document.createElement('div');
+  div.className = 'guest-card';
+  div.dataset.id = id;
+  div.innerHTML = `
+    <div class="gc-head">
+      <span class="gc-num">${isFirst ? 'Гость №1 (это вы)' : 'Гость №' + num}</span>
+      ${isFirst ? '' : '<button type="button" class="gc-rm">✕ убрать</button>'}
+    </div>
+    <div class="fg">
+      <label class="fl">Имя и фамилия *</label>
+      <input type="text" class="fi gname" placeholder="${isFirst?'Иван Иванов':'Имя гостя'}" required>
+    </div>
+    <div class="fg">
+      <label class="fl">Возраст</label>
+      <div class="age-toggle">
+        <div class="pill"><input type="radio" id="age_${id}_a" name="age_${id}" value="Взрослый" checked><label for="age_${id}_a">Взрослый</label></div>
+        <div class="pill"><input type="radio" id="age_${id}_c" name="age_${id}" value="Ребёнок"><label for="age_${id}_c">Ребёнок</label></div>
+      </div>
+    </div>
+    <div class="fg food-box">
+      <label class="fl">Меню</label>
+      <div class="pills">${pillsHtml('food', FOOD, 'radio')}</div>
+    </div>
+    <div class="fg alc-box">
+      <label class="fl">Напитки <span style="font-size:.55rem;opacity:.5;letter-spacing:.04em;text-transform:none">(можно несколько)</span></label>
+      <div class="pills">${pillsHtml('alc', ALC, 'checkbox')}</div>
+    </div>
+    <div class="fg">
+      <label class="fl">Аллергии и пожелания по еде <span style="font-size:.55rem;opacity:.5;letter-spacing:.04em;text-transform:none">(необязательно)</span></label>
+      <textarea class="fi ta gdiet" placeholder="Например: аллергия на орехи, не ем лактозу, без острого…" style="min-height:60px"></textarea>
+    </div>
+  `;
+
+  // age toggle swaps food/alc options for kid menu
+  const ageRadios = div.querySelectorAll(`[name=age_${id}]`);
+  const foodBox = div.querySelector('.food-box .pills');
+  const alcBox  = div.querySelector('.alc-box .pills');
+  ageRadios.forEach(r => r.addEventListener('change', () => {
+    const isKid = r.value === 'Ребёнок' && r.checked;
+    foodBox.innerHTML = pillsHtml('food', isKid?KID_FOOD:FOOD, 'radio');
+    alcBox.innerHTML  = pillsHtml('alc',  isKid?KID_DRINK:ALC,  'checkbox');
+    div.querySelector('.alc-box .fl').firstChild.textContent = isKid ? 'Напиток' : 'Напитки ';
+  }));
+
+  // remove
+  const rm = div.querySelector('.gc-rm');
+  if (rm) rm.addEventListener('click', () => {
+    div.style.transition='opacity .35s ease, transform .35s ease';
+    div.style.opacity='0';div.style.transform='translateX(-12px)';
+    setTimeout(()=>{div.remove();renumber();},340);
+  });
+
+  return div;
+}
+
+function renumber(){
+  [...document.querySelectorAll('#guests .guest-card')].forEach((c,i)=>{
+    const t = c.querySelector('.gc-num');
+    t.textContent = i===0 ? 'Гость №1 (это вы)' : 'Гость №' + (i+1);
+  });
+}
+
+const guestsBox = document.getElementById('guests');
+guestsBox.appendChild(makeCard(1, true));
+
+document.getElementById('addG').addEventListener('click', () => {
+  const n = guestsBox.children.length + 1;
+  guestsBox.appendChild(makeCard(n, false));
+  // scroll into view
+  const last = guestsBox.lastElementChild;
+  setTimeout(()=>last.scrollIntoView({behavior:'smooth',block:'center'}),60);
+});
+
+// Transfer toggle — show pickup point only when "Да"
+const pickupBox = document.getElementById('pickupBox');
+document.querySelectorAll('[name=transfer]').forEach(r => {
+  r.addEventListener('change', () => {
+    const show = r.value === 'Да' && r.checked;
+    pickupBox.style.display = show ? 'block' : 'none';
+    if (show) setTimeout(()=>pickupBox.scrollIntoView({behavior:'smooth',block:'center'}),120);
+  });
+});
+
+document.getElementById('gForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target, sb = document.getElementById('sbtn');
+  const phone = f.phone.value.trim();
+  const at = f.querySelector('[name=att]:checked');
+  const tr = f.querySelector('[name=transfer]:checked');
+
+  if (!phone || !at) { alert('Укажите телефон и подтвердите участие'); return; }
+
+  const cards = [...document.querySelectorAll('#guests .guest-card')];
+  const guests = [];
+  for (const c of cards){
+    const name = c.querySelector('.gname').value.trim();
+    if (!name) { alert('Заполните имя для всех гостей'); c.querySelector('.gname').focus(); return; }
+    const id = c.dataset.id;
+    const age = c.querySelector(`[name=age_${id}]:checked`)?.value || 'Взрослый';
+    const food = c.querySelector(`[name=food_${id}]:checked`)?.value || '—';
+    const alc = [...c.querySelectorAll(`[name=alc_${id}]:checked`)].map(x=>x.value).join(', ') || '—';
+    const diet = (c.querySelector('.gdiet')?.value || '').trim() || '—';
+    guests.push({name, age, food, alc, diet});
+  }
+
+  sb.disabled = true; sb.textContent = 'Отправляем…';
+
+  // Build transfer string with pickup info if applicable
+  let transferStr = tr ? tr.value : '—';
+  if (tr && tr.value === 'Да') {
+    const pk = f.querySelector('[name=pickup]:checked');
+    const pkNote = (f.pickup_note?.value || '').trim();
+    if (pk) transferStr = 'Да — ' + pk.value;
+    if (pkNote) transferStr += ' (' + pkNote + ')';
+  }
+
+  const pay = {
+    ts: new Date().toLocaleString('ru-RU'),
+    phone, att: at.value, transfer: transferStr,
+    wish: f.wish.value.trim(),
+    guests
+  };
+  try {
+    if (GURL !== 'PASTE_YOUR_GOOGLE_SCRIPT_URL')
+      await fetch(GURL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(pay)});
+    else await new Promise(r=>setTimeout(r,700));
+  } catch(_){}
+  f.style.display='none';
+  const ok=document.getElementById('formOk');
+  ok.style.display='block'; ok.style.animation='fadeIn .6s ease';
+  setupCalendar();
+});
+
+/* ── CALENDAR LINKS ── */
+function setupCalendar(){
+  // Wedding: 30 Sep 2026, 16:00–22:00 Moscow (UTC+3)
+  // UTC: 13:00 → 19:00
+  const startUTC = '20260930T130000Z';
+  const endUTC   = '20260930T190000Z';
+  const title    = 'Свадьба Андрея и Марины';
+  const desc     = 'С нетерпением ждём вас!\\nОранжерея «Зимёнки Парк», Нижегородская обл.\\nТрансфер с пл. Горького в 14:30.';
+  const loc      = 'Оранжерея «Зимёнки Парк», Нижегородская область';
+
+  // Google Calendar
+  const gURL = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text=' + encodeURIComponent(title)
+    + '&dates=' + startUTC + '/' + endUTC
+    + '&details=' + encodeURIComponent(desc.replace(/\\n/g,'\n'))
+    + '&location=' + encodeURIComponent(loc);
+  document.getElementById('gCal').href = gURL;
+
+  // ICS (Apple Calendar / Outlook)
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Andrey & Marina Wedding//RU',
+    'CALSCALE:GREGORIAN',
+    'BEGIN:VEVENT',
+    'UID:andrey-marina-2026-09-30@wedding',
+    'DTSTAMP:' + startUTC,
+    'DTSTART:' + startUTC,
+    'DTEND:' + endUTC,
+    'SUMMARY:' + title,
+    'DESCRIPTION:' + desc,
+    'LOCATION:' + loc,
+    'BEGIN:VALARM',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:Свадьба сегодня!',
+    'TRIGGER:-P1D',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+  document.getElementById('iCal').href = URL.createObjectURL(blob);
+}
+</script>
+</body>
+</html>
