@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="envelope.jpg" as="image" fetchpriority="high">
 <style>
 :root {
   --bg:       #ECEAE5;
@@ -47,14 +48,16 @@ body{
   position:relative;
   width:min(100vw,480px);
   height:100vh;max-height:880px;
-  background-image:url('envelope.png');
+  background-image:url('envelope.jpg');
   background-size:cover;
   background-position:center center;
   background-repeat:no-repeat;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  transition:transform .9s cubic-bezier(.4,0,.2,1), opacity .9s ease;
+  opacity:0;
+  transition:transform .9s cubic-bezier(.4,0,.2,1), opacity .6s ease;
 }
+.env-photo.loaded{opacity:1}
 .env-photo.opening{
   transform:scale(1.18);opacity:0;
 }
@@ -71,6 +74,27 @@ body{
   40%{transform:scale(.985)}
   100%{transform:scale(1)}
 }
+
+/* Loading placeholder while envelope.png downloads */
+.env-loading{
+  position:absolute;z-index:2;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:1rem;
+  pointer-events:none;
+  transition:opacity .5s ease;
+}
+.env-loading.hidden{opacity:0}
+.env-mono{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(3.2rem,15vw,5rem);
+  color:var(--taupe);opacity:.38;letter-spacing:.12em;
+}
+.env-hint{
+  font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--muted);opacity:.4;
+  animation:hintPulse 1.8s ease-in-out infinite;
+}
+@keyframes hintPulse{0%,100%{opacity:.25}50%{opacity:.55}}
 
 /* ─── MAIN SITE ─── */
 #main{
@@ -422,6 +446,10 @@ footer{background:var(--charcoal);text-align:center;padding:2.5rem 1.5rem}
      ENVELOPE SCREEN
      ════════════════════════════════════════ -->
 <div id="env-screen">
+  <div class="env-loading" id="envLoading">
+    <span class="env-mono">А &amp; М</span>
+    <p class="env-hint">загружается…</p>
+  </div>
   <div class="env-photo" id="ePhoto"></div>
 </div>
 
@@ -699,11 +727,7 @@ footer{background:var(--charcoal);text-align:center;padding:2.5rem 1.5rem}
 
 </div><!-- /#main -->
 
-<!-- Hidden SoundCloud player -->
-<div style="position:fixed;bottom:-400px;left:-400px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
-  <iframe id="scf" width="100" height="100" scrolling="no" frameborder="no" allow="autoplay"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ghostloft/so-high&color=%23B89A70&auto_play=false&hide_related=true&show_comments=false&show_user=false"></iframe>
-</div>
+<audio id="bgMusic" src="So%20High.mp3" loop preload="none"></audio>
 
 <!-- Music button -->
 <button id="mbtn" aria-label="Музыка">
@@ -711,7 +735,6 @@ footer{background:var(--charcoal);text-align:center;padding:2.5rem 1.5rem}
   <svg id="icP"  viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
 </button>
 
-<script src="https://w.soundcloud.com/player/api.js"></script>
 <script>
 /* ── ENVELOPE ── */
 const ePhoto = document.getElementById('ePhoto');
@@ -719,6 +742,17 @@ const eScr   = document.getElementById('env-screen');
 const main   = document.getElementById('main');
 const mbtn   = document.getElementById('mbtn');
 let opened   = false;
+
+// Preload envelope image → show when ready, hide placeholder
+(function(){
+  const img = new Image();
+  img.onload = function(){
+    ePhoto.classList.add('loaded');
+    const el = document.getElementById('envLoading');
+    if(el){ el.classList.add('hidden'); setTimeout(()=>{ if(el.parentNode) el.remove(); },550); }
+  };
+  img.src = 'envelope.jpg';
+})();
 
 eScr.addEventListener('click', openEnv);
 
@@ -739,16 +773,14 @@ function openEnv() {
 }
 
 /* ── MUSIC ── */
-const scf   = document.getElementById('scf');
 const icPl  = document.getElementById('icPl');
 const icP   = document.getElementById('icP');
-let sc = null, playing = false;
-
-scf.addEventListener('load', () => { if (window.SC) sc = SC.Widget(scf); });
+const audio = document.getElementById('bgMusic');
+let playing = false;
 
 function startMusic() {
-  if (!sc && window.SC) sc = SC.Widget(scf);
-  if (sc) { sc.play(); setPlay(true); }
+  audio.play().catch(()=>{});
+  setPlay(true);
 }
 
 function setPlay(p) {
@@ -759,9 +791,8 @@ function setPlay(p) {
 }
 
 mbtn.addEventListener('click', () => {
-  if (!sc && window.SC) sc = SC.Widget(scf);
-  if (!playing) { sc && sc.play();  setPlay(true); }
-  else          { sc && sc.pause(); setPlay(false); }
+  if (!playing) { audio.play().catch(()=>{}); setPlay(true); }
+  else          { audio.pause(); setPlay(false); }
 });
 
 /* ── COUNTDOWN ── */
