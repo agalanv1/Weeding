@@ -265,10 +265,29 @@ body{
 
 .dc-avoid{text-align:center;font-size:.71rem;color:var(--muted);opacity:.62;font-style:italic;line-height:1.7;padding-top:1.2rem;border-top:1px solid rgba(0,0,0,.06);margin-top:.6rem}
 
+/* ─── VIDEO ─── */
+#s-video{padding:3.5rem 1.6rem;background:var(--cream)}
+.video-note{text-align:center;font-size:.8rem;color:var(--muted);
+  line-height:1.8;font-style:italic;margin-bottom:1.4rem}
+.wedding-video{
+  width:100%;display:block;border-radius:6px;
+  box-shadow:0 8px 28px rgba(0,0,0,.14);
+  background:#000;
+}
+
 /* ─── RSVP ─── */
 #s-rsvp{padding:3.8rem 1.6rem;background:var(--cream);color:var(--text);position:relative}
 .f-deadline{text-align:center;font-size:.7rem;letter-spacing:.1em;
-  color:var(--muted);margin-bottom:2.4rem;font-style:italic;opacity:.75}
+  color:var(--muted);margin-bottom:1.4rem;font-style:italic;opacity:.75}
+.f-instr{
+  background:var(--ivory);border-left:3px solid var(--gold);
+  border-radius:0 4px 4px 0;
+  padding:1rem 1.2rem;margin-bottom:2rem;
+  font-size:.76rem;line-height:1.9;color:var(--muted);
+}
+.f-instr strong{color:var(--charcoal);font-weight:500}
+.f-instr ol{padding-left:1.2rem;margin-top:.4rem}
+.f-instr li{margin-bottom:.2rem}
 
 .guest-card{
   background:#fff;border:1px solid rgba(184,154,112,.22);
@@ -490,7 +509,6 @@ footer{background:var(--charcoal);text-align:center;padding:2.5rem 1.5rem}
   <section id="s-prog" class="sec fi-block">
     <span class="sec-label">30 сентября 2026</span>
     <h2 class="sec-title">Программа дня</h2>
-    <div class="orn">· · ◇ · ·</div>
     <div class="prog-list">
 
       <div class="prog-item">
@@ -577,6 +595,17 @@ footer{background:var(--charcoal);text-align:center;padding:2.5rem 1.5rem}
     <p class="dc-avoid">Просьба воздержаться от белого<br>и очень ярких оттенков</p>
   </section>
 
+  <!-- VIDEO for girls -->
+  <section id="s-video" class="sec fi-block">
+    <span class="sec-label">Девочкам</span>
+    <h2 class="sec-title">Образ вечера</h2>
+    <div class="orn">· · ◇ · ·</div>
+    <p class="video-note">Небольшое видео-вдохновение<br>для создания образа на вечер 🌸</p>
+    <video class="wedding-video" src="IMG_3479.MP4"
+           controls playsinline preload="none">
+    </video>
+  </section>
+
   <div class="divider"></div>
 
   <!-- TRANSFER -->
@@ -617,6 +646,18 @@ footer{background:var(--charcoal);text-align:center;padding:2.5rem 1.5rem}
     <h2 class="sec-title">Подтвердите участие</h2>
     <div class="orn">· · ◇ · ·</div>
     <p class="f-deadline">Просим заполнить до 30 июля 2026<br>одну анкету за всю семью</p>
+
+    <div class="f-instr">
+      <strong>Как заполнить анкету:</strong>
+      <ol>
+        <li>Укажите контактный телефон</li>
+        <li>Отметьте — придёте или нет</li>
+        <li>Выберите, нужен ли трансфер (и откуда вас забрать)</li>
+        <li>Заполните карточку на каждого гостя — имя, блюдо, напитки</li>
+        <li>Если едете несколько человек — нажмите «+ Добавить гостя»</li>
+        <li>При желании оставьте пожелания и нажмите «Отправить»</li>
+      </ol>
+    </div>
 
     <form id="gForm" novalidate>
       <!-- Shared contact -->
@@ -715,7 +756,7 @@ footer{background:var(--charcoal);text-align:center;padding:2.5rem 1.5rem}
       </div>
       <div class="ct-item">
         <p class="ct-name">Марина</p>
-        <a class="ct-tel" href="tel:+79103770163">+7 (910) 377-01-63</a>
+        <a class="ct-tel" href="tel:+79603770163">+7 (960) 377-01-63</a>
       </div>
     </div>
   </section>
@@ -853,10 +894,10 @@ const KID_DRINK = [
 ];
 
 let gid = 0;
-function pillsHtml(name, opts, type){
+function pillsHtml(name, opts, type, cardId){
   return opts.map(o => {
-    const id = `${name}_${gid}_${o.v.replace(/[^а-яёa-z]/gi,'')}`;
-    return `<div class="pill"><input type="${type}" id="${id}" name="${name}_${gid}" value="${o.v}"><label for="${id}">${o.e} ${o.v}</label></div>`;
+    const eid = `${name}_${cardId}_${o.v.replace(/[^а-яёa-z]/gi,'')}`;
+    return `<div class="pill"><input type="${type}" id="${eid}" name="${name}_${cardId}" value="${o.v}"><label for="${eid}">${o.e} ${o.v}</label></div>`;
   }).join('');
 }
 
@@ -883,11 +924,11 @@ function makeCard(num, isFirst){
     </div>
     <div class="fg food-box">
       <label class="fl">Меню</label>
-      <div class="pills">${pillsHtml('food', FOOD, 'radio')}</div>
+      <div class="pills">${pillsHtml('food', FOOD, 'radio', id)}</div>
     </div>
     <div class="fg alc-box">
       <label class="fl">Напитки <span style="font-size:.55rem;opacity:.5;letter-spacing:.04em;text-transform:none">(можно несколько)</span></label>
-      <div class="pills">${pillsHtml('alc', ALC, 'checkbox')}</div>
+      <div class="pills">${pillsHtml('alc', ALC, 'checkbox', id)}</div>
     </div>
     <div class="fg">
       <label class="fl">Аллергии и пожелания по еде <span style="font-size:.55rem;opacity:.5;letter-spacing:.04em;text-transform:none">(необязательно)</span></label>
@@ -901,8 +942,8 @@ function makeCard(num, isFirst){
   const alcBox  = div.querySelector('.alc-box .pills');
   ageRadios.forEach(r => r.addEventListener('change', () => {
     const isKid = r.value === 'Ребёнок' && r.checked;
-    foodBox.innerHTML = pillsHtml('food', isKid?KID_FOOD:FOOD, 'radio');
-    alcBox.innerHTML  = pillsHtml('alc',  isKid?KID_DRINK:ALC,  'checkbox');
+    foodBox.innerHTML = pillsHtml('food', isKid?KID_FOOD:FOOD, 'radio', id);
+    alcBox.innerHTML  = pillsHtml('alc',  isKid?KID_DRINK:ALC,  'checkbox', id);
     div.querySelector('.alc-box .fl').firstChild.textContent = isKid ? 'Напиток' : 'Напитки ';
   }));
 
