@@ -513,28 +513,28 @@ footer{background:var(--charcoal);text-align:center;padding:2.5rem 1.5rem}
 
       <div class="prog-item">
         <div class="prog-dot"></div>
-        <span class="prog-time">16:00</span>
+        <span class="prog-time">15:00</span>
         <p class="prog-ev">Сбор гостей</p>
         <p class="prog-sub">Welcome-зона<br>и лёгкий фуршет</p>
       </div>
 
       <div class="prog-item">
         <div class="prog-dot"></div>
-        <span class="prog-time">16:30</span>
+        <span class="prog-time">15:30</span>
         <p class="prog-ev">Клятвы</p>
         <p class="prog-sub">Личные клятвы, обмен кольцами<br>и объявление семьёй</p>
       </div>
 
       <div class="prog-item">
         <div class="prog-dot"></div>
-        <span class="prog-time">17:00</span>
+        <span class="prog-time">16:00</span>
         <p class="prog-ev">Банкет</p>
         <p class="prog-sub">Ужин, тосты, первый танец<br>и музыка до самой ночи</p>
       </div>
 
       <div class="prog-item">
         <div class="prog-dot"></div>
-        <span class="prog-time">22:00</span>
+        <span class="prog-time">21:00</span>
         <p class="prog-ev">Заканчиваем</p>
         <p class="prog-sub">Финальный танец<br>и трансфер домой</p>
       </div>
@@ -617,7 +617,7 @@ footer{background:var(--charcoal);text-align:center;padding:2.5rem 1.5rem}
     <div class="route-card">
       <div class="rs-step">
         <div class="rs-dot"><em></em></div>
-        <div class="rs-body"><p class="rs-title">Площадь Горького</p><p class="rs-sub">Отправление в 14:30</p></div>
+        <div class="rs-body"><p class="rs-title">Площадь Горького</p><p class="rs-sub">Отправление в 13:30</p></div>
       </div>
       <div class="rs-step">
         <div class="rs-dot"><em></em></div>
@@ -633,10 +633,10 @@ footer{background:var(--charcoal);text-align:center;padding:2.5rem 1.5rem}
       </div>
       <div class="rs-step">
         <div class="rs-dot"><em></em></div>
-        <div class="rs-body"><p class="rs-title">Зимёнки Парк ✦</p><p class="rs-sub">Прибытие к 15:50</p></div>
+        <div class="rs-body"><p class="rs-title">Зимёнки Парк ✦</p><p class="rs-sub">Прибытие к 14:50</p></div>
       </div>
     </div>
-    <p class="tr-note">Обратный трансфер в 22:30 по тому же маршруту</p>
+    <p class="tr-note">Обратный трансфер в 21:30 по тому же маршруту</p>
   </section>
 
   <div class="divider"></div>
@@ -840,7 +840,7 @@ mbtn.addEventListener('click', () => {
 /* ── COUNTDOWN ── */
 function startCountdown() {
   (function tick() {
-    const d = new Date('2026-09-30T16:00:00') - new Date();
+    const d = new Date('2026-09-30T15:00:00+03:00') - new Date();
     if (d > 0) {
       document.getElementById('dd').textContent = String(Math.floor(d/864e5)).padStart(2,'0');
       document.getElementById('dh').textContent = String(Math.floor(d%864e5/36e5)).padStart(2,'0');
@@ -1039,12 +1039,12 @@ document.getElementById('gForm').addEventListener('submit', async e => {
 
 /* ── CALENDAR LINKS ── */
 function setupCalendar(){
-  // Wedding: 30 Sep 2026, 16:00–22:00 Moscow (UTC+3)
-  // UTC: 13:00 → 19:00
-  const startUTC = '20260930T130000Z';
-  const endUTC   = '20260930T190000Z';
+  // Wedding: 30 Sep 2026, 15:00–21:00 Moscow (UTC+3)
+  // UTC: 12:00 → 18:00
+  const startUTC = '20260930T120000Z';
+  const endUTC   = '20260930T180000Z';
   const title    = 'Свадьба Андрея и Марины';
-  const desc     = 'С нетерпением ждём вас!\\nОранжерея «Зимёнки Парк», Нижегородская обл.\\nТрансфер с пл. Горького в 14:30.';
+  const desc     = 'С нетерпением ждём вас!\\nОранжерея «Зимёнки Парк», Нижегородская обл.\\nТрансфер с пл. Горького в 13:30.';
   const loc      = 'Оранжерея «Зимёнки Парк», Нижегородская область';
 
   // Google Calendar
